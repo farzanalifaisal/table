@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, FormControl, Skeleton, InputLabel, NativeSelect, TextField, IconButton } from '@mui/material';
-import { addFilter, changeFilter, deleteFilter } from '../../../redux/slices/filterSlice';
+import { addFilter, changeFilterAt, deleteFilter } from '../../../redux/slices/filterSlice';
 import CloseIcon from '@mui/icons-material/Close';
 
-const FilterRows = () => {
+const FilterRows = (props) => {
 
     const dispatch = useDispatch();
     const keys = useSelector((state) => state.keysReducer.filteredKeys);
@@ -32,7 +32,7 @@ const FilterRows = () => {
             setFilterAdded(true);
         }
         else if (isValidFilter(filter)) {
-            dispatch(changeFilter(filter));
+            dispatch(changeFilterAt({"filter": filter, "id": props.id}));
         }
         // else {
         //     dispatch(deleteFilter());

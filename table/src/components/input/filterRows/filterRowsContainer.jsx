@@ -7,7 +7,7 @@ const FilterRowsContainer = () => {
 
   return (
     <Stack>
-      {[...Array(filterCount)].map((e, i) => <FilterRows key={i}></FilterRows>)}
+      {[...Array(filterCount)].map((e, i) => <FilterRows key={i} id={i}></FilterRows>)}
       <Button variant="text" sx={{marginLeft: "48px", width: "120px"}} onClick={() => setFilterCount(filterCount + 1)}>Add Filter</Button>
     </Stack>
   )

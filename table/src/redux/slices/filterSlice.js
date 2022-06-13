@@ -49,8 +49,8 @@ export const filterSlice = createSlice({
         setConnector: (state, action) => {
             state.connector = action.payload;
         },
-        changeFilter: (state, action) => {
-            state.filters[state.filters.length - 1] = action.payload;
+        changeFilterAt: (state, action) => {
+            state.filters[action.payload.id] = action.payload.filter;
         },
         deleteFilter: (state) => {
             state.filters.pop();
@@ -58,5 +58,5 @@ export const filterSlice = createSlice({
     }
 })
 
-export const { addFilter, setConnector, changeFilter, deleteFilter } = filterSlice.actions;
+export const { addFilter, setConnector, changeFilterAt, deleteFilter } = filterSlice.actions;
 export default filterSlice.reducer;
