@@ -1,16 +1,14 @@
 // This is a component which renders an abstract list
 
 import React from 'react'
-import { connect, useSelector } from 'react-redux';
-import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
-import { useDispatch } from "react-redux";
-import { filterRow } from '../redux/slices/filterSlice.js';
+import { useSelector } from 'react-redux';
+import { Table, TableHead, TableRow, TableCell, TableBody, Skeleton } from '@mui/material';
 import Filter from './filter/filter.js';
 
 const List = () => {
 
   const data = useSelector((state) => state.dataReducer.data);
-  const keys = useSelector((state) => state.keysReducer.keys);
+  const keys = useSelector((state) => state.keysReducer.filteredKeys);
   const filters = useSelector((state) => state.filterReducer.filters);
   const connector = useSelector((state) => state.filterReducer.connector);
 
@@ -32,6 +30,7 @@ const List = () => {
   }
 
   return (
+    data.length > 0 ? (
     <Table>
 
       <TableHead>
@@ -52,7 +51,9 @@ const List = () => {
         )}
       </TableBody>
 
-    </Table>
+    </Table>) : (
+      <Skeleton variant="rectangular" height={500}/>
+    )
   )
 }
 
