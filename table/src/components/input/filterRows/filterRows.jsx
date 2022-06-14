@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { Box, FormControl, Skeleton, InputLabel, NativeSelect, TextField, IconButton } from '@mui/material';
-import { addFilter, changeFilterAt, deleteFilter } from '../../../redux/slices/filterSlice';
-import CloseIcon from '@mui/icons-material/Close';
+import { Box, FormControl, Skeleton, InputLabel, NativeSelect, TextField } from '@mui/material';
+import { addFilter, changeFilterAt, deleteFilterAt } from '../../../redux/slices/filterSlice';
 
 const FilterRows = (props) => {
 
@@ -27,26 +26,23 @@ const FilterRows = (props) => {
     const [filterAdded, setFilterAdded] = useState(false);
 
     useEffect(() => {
-        if (isValidFilter(filter) && !filterAdded) {
-            dispatch(addFilter(filter));
-            setFilterAdded(true);
-        }
-        else if (isValidFilter(filter)) {
-            dispatch(changeFilterAt({"filter": filter, "id": props.id}));
-        }
+        // if (isValidFilter(filter) && !filterAdded) {
+        //     dispatch(addFilter(filter));
+        //     setFilterAdded(true);
+        // }
+        // else if (isValidFilter(filter)) {
+        dispatch(changeFilterAt({"filter": filter, "index": props.index}));
+        // }
         // else {
         //     dispatch(deleteFilter());
         //     setFilterAdded(false);
         // }
-        console.log(filters);
     }, [filter])
 
     return (
         keys.length > 0 ? (
             <Box sx={{ display: 'flex' }}>
-                <IconButton sx={{ alignSelf: 'center', marginRight: '8px' }}>
-                    <CloseIcon />
-                </IconButton>
+                
                 <FormControl fullWidth>
                     <InputLabel variant="standard" htmlFor="select-columns">
                         Columns
@@ -87,6 +83,7 @@ const FilterRows = (props) => {
                     label="Value"
                     variant="standard"
                     onChange={(e) => setFilter(oldFilter => ({ ...oldFilter, value: e.target.value }))}
+                    value={filters[props.index].value}
                 />
             </Box>) : (
             <Skeleton variant="text" width={420} height={70} />

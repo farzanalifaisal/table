@@ -14,6 +14,11 @@ export const filterSlice = createSlice({
         ],
         connector: "or",
         filters: [
+            {
+                column: "id",
+                operator: "contains",
+                value: "",
+            }
             // {
             //     column: "category",
             //     // contains
@@ -43,20 +48,26 @@ export const filterSlice = createSlice({
         ]
     },
     reducers: {
-        addFilter: (state, action) => {
-            state.filters.push(action.payload);
+        addFilter: (state) => {
+            // state.filters.push(action.payload);
+            state.filters.push({
+                column: "id",
+                operator: "contains",
+                value: "",
+            });
         },
         setConnector: (state, action) => {
             state.connector = action.payload;
         },
         changeFilterAt: (state, action) => {
-            state.filters[action.payload.id] = action.payload.filter;
+            state.filters[action.payload.index] = action.payload.filter;
         },
-        deleteFilter: (state) => {
-            state.filters.pop();
+        deleteFilterAt: (state, action) => {
+            console.log(action.payload)
+            state.filters.splice(action.payload, 1);
         }
     }
 })
 
-export const { addFilter, setConnector, changeFilterAt, deleteFilter } = filterSlice.actions;
+export const { addFilter, setConnector, changeFilterAt, deleteFilterAt } = filterSlice.actions;
 export default filterSlice.reducer;
