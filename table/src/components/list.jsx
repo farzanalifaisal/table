@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { Table, TableHead, TableRow, TableCell, TableBody, Skeleton } from '@mui/material';
+import { Table, TableHead, TableRow, TableCell, TableBody, Skeleton, Box } from '@mui/material';
 import Filter from './filter/filter.js';
 
 const List = () => {
@@ -13,16 +13,16 @@ const List = () => {
   const connector = useSelector((state) => state.filterReducer.connector);
 
   let checkFilters = (row) => {
-    if(connector === "And"){
+    if (connector === "And") {
       for (let i = 0; i < filters.length; i++) {
-        if(Filter({ row: row, filter: filters[i] }) === false){
+        if (Filter({ row: row, filter: filters[i] }) === false) {
           return false;
         }
       }
       return true;
     }
     for (let i = 0; i < filters.length; i++) {
-      if(Filter({ row: row, filter: filters[i] }) === true){
+      if (Filter({ row: row, filter: filters[i] }) === true) {
         return true;
       }
     }
@@ -30,9 +30,7 @@ const List = () => {
   }
 
   return (
-    data.length > 0 ? (
     <Table>
-
       <TableHead>
         <TableRow>
           {keys.map((value, id) => <TableCell key={id}>{value}</TableCell>)}
@@ -50,10 +48,7 @@ const List = () => {
           </TableRow>
         )}
       </TableBody>
-
-    </Table>) : (
-      <Skeleton variant="rectangular" height={500}/>
-    )
+    </Table>
   )
 }
 

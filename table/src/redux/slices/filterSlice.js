@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const filterSlice = createSlice({
     name: 'filters',
     initialState: {
+        defaultOption: '',
         operators: [
             "contains",
             "equals",
@@ -13,45 +14,13 @@ export const filterSlice = createSlice({
             "is any of"
         ],
         connector: "or",
-        filters: [
-            {
-                column: "id",
-                operator: "contains",
-                value: "",
-            }
-            // {
-            //     column: "category",
-            //     // contains
-            //     operator: 'equals',
-            //     // equals
-            //     // starts with
-            //     // ends with
-            //     // is empty
-            //     // is not empty
-            //     // is any of
-            //     value: "Men'S clothing"
-            // },
-            // {
-            //     column: "title",
-            //     operator: "starts with",
-            //     value: "m"
-            // },
-            // {
-            //     column: "title",
-            //     operator: "ends with",
-            //     value: 't'
-            // },
-            // {
-            //     column: "title",
-            //     operator: "is empty"
-            // }
-        ]
+        filters: []
     },
     reducers: {
         addFilter: (state) => {
             // state.filters.push(action.payload);
             state.filters.push({
-                column: "id",
+                column: state.defaultOption,
                 operator: "contains",
                 value: "",
             });
@@ -60,14 +29,19 @@ export const filterSlice = createSlice({
             state.connector = action.payload;
         },
         changeFilterAt: (state, action) => {
+            if(action.payload.filter.column === ""){
+                action.payload.filter.column = state.defaultOption;
+            }
             state.filters[action.payload.index] = action.payload.filter;
         },
         deleteFilterAt: (state, action) => {
-            console.log(action.payload)
             state.filters.splice(action.payload, 1);
+        },
+        setDefaultOption: (state, action) => {
+            state.defaultOption = action.payload;
         }
     }
 })
 
-export const { addFilter, setConnector, changeFilterAt, deleteFilterAt } = filterSlice.actions;
+export const { addFilter, setConnector, changeFilterAt, deleteFilterAt, setDefaultOption } = filterSlice.actions;
 export default filterSlice.reducer;

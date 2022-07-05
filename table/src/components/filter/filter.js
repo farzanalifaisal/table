@@ -3,7 +3,6 @@ let Filter = (props) => {
     const contains = (rowValue, filterValue) => {
         return new RegExp(`${filterValue}`, 'i').test(rowValue);
     }
-
     switch(props.filter.operator){
         case 'contains':
             return contains(props.row[props.filter.column].toString().toLowerCase(), props.filter.value.toString().toLowerCase());
@@ -26,8 +25,6 @@ let Filter = (props) => {
                 }
             }
             return false;
-        default:
-            console.log(props);
     }
 }
 export default Filter;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, FormControl, Skeleton, InputLabel, NativeSelect, TextField } from '@mui/material';
-import { addFilter, changeFilterAt, deleteFilterAt } from '../../../redux/slices/filterSlice';
+import { changeFilterAt } from '../../../redux/slices/filterSlice';
 
 const FilterRows = (props) => {
 
@@ -19,75 +19,61 @@ const FilterRows = (props) => {
     }
 
     const [filter, setFilter] = useState({
-        column: "id",
+        column: "",
         operator: "contains",
         value: "",
     })
-    const [filterAdded, setFilterAdded] = useState(false);
 
     useEffect(() => {
-        // if (isValidFilter(filter) && !filterAdded) {
-        //     dispatch(addFilter(filter));
-        //     setFilterAdded(true);
-        // }
-        // else if (isValidFilter(filter)) {
-        dispatch(changeFilterAt({"filter": filter, "index": props.index}));
-        // }
-        // else {
-        //     dispatch(deleteFilter());
-        //     setFilterAdded(false);
-        // }
+        dispatch(changeFilterAt({ "filter": filter, "index": props.index }));
     }, [filter])
 
     return (
-        keys.length > 0 ? (
-            <Box sx={{ display: 'flex' }}>
-                
-                <FormControl fullWidth>
-                    <InputLabel variant="standard" htmlFor="select-columns">
-                        Columns
-                    </InputLabel>
-                    <NativeSelect
-                        inputProps={{
-                            name: 'columns',
-                            id: "select-columns",
-                        }}
-                        onChange={(e) => setFilter(oldFilter => ({ ...oldFilter, column: e.target.value }))}
-                    >
-                        {keys.map((value) => {
-                            return (
-                                <option key={value} value={value}>{value}</option>
-                            );
-                        })}
-                    </NativeSelect>
-                </FormControl>
-                <FormControl fullWidth>
-                    <InputLabel variant="standard" htmlFor="select-operator">
-                        Operator
-                    </InputLabel>
-                    <NativeSelect
-                        inputProps={{
-                            name: 'operator',
-                            id: 'select-operator',
-                        }}
-                        onChange={(e) => setFilter(oldFilter => ({ ...oldFilter, operator: e.target.value }))}
-                    >
-                        {operators.map((value) => {
-                            return (
-                                <option key={value} value={value}>{value}</option>
-                            );
-                        })}
-                    </NativeSelect>
-                </FormControl>
-                <TextField fullWidth
-                    label="Value"
-                    variant="standard"
-                    onChange={(e) => setFilter(oldFilter => ({ ...oldFilter, value: e.target.value }))}
-                    value={filters[props.index].value}
-                />
-            </Box>) : (
-            <Skeleton variant="text" width={420} height={70} />
-        )
+        <Box sx={{ display: 'flex', flexWrap: 'nowrap' }}>
+            <FormControl fullWidth>
+                <InputLabel variant="standard" htmlFor="select-columns">
+                    Columns
+                </InputLabel>
+                <NativeSelect
+                    inputProps={{
+                        name: 'columns',
+                        id: "select-columns",
+                    }}
+                    onChange={(e) => setFilter(oldFilter => ({ ...oldFilter, column: e.target.value }))}
+                >
+                    {keys.map((value) => {
+                        return (
+                            <option key={value} value={value}>{value}</option>
+                        );
+                    })}
+                </NativeSelect>
+            </FormControl>
+            <FormControl fullWidth>
+                <InputLabel variant="standard" htmlFor="select-operator">
+                    Operator
+                </InputLabel>
+                <NativeSelect
+                    inputProps={{
+                        name: 'operator',
+                        id: 'select-operator',
+                    }}
+                    onChange={(e) => setFilter(oldFilter => ({ ...oldFilter, operator: e.target.value }))}
+                >
+                    {operators.map((value) => {
+                        return (
+                            <option key={value} value={value}>{value}</option>
+                        );
+                    })}
+                </NativeSelect>
+            </FormControl>
+            <TextField fullWidth
+                label="Value"
+                variant="standard"
+                onChange={(e) => setFilter(oldFilter => ({ ...oldFilter, value: e.target.value }))}
+                value={filters[props.index].value}
+            />
+        </Box>
+        
     )
 }
 

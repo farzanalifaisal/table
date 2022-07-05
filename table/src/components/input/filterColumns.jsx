@@ -15,8 +15,7 @@ const FilterColumns = () => {
     };
 
     return (
-        keys.length > 0 ? (
-        <FormControl sx={{ width: 'fit-content' }}>
+        <FormControl sx={{ width: 'fit-content', zIndex: '1', flexWrap: 'nowrap', flexShrink: '0' }}>
             <InputLabel id="filter-label">Columns</InputLabel>
             <Select
                 labelId="filter-label"
@@ -41,9 +40,7 @@ const FilterColumns = () => {
                     </MenuItem>
                 ))}
             </Select>
-        </FormControl>) : (
-            <Skeleton variant="text" width={380} height={70} />
-        )
+        </FormControl>
     )
 }
 
