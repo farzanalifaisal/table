@@ -10,7 +10,6 @@ export const keySlice = createSlice({
         setKeys: (state, action) => {
             state.keys = action.payload;
             state.filteredKeys = action.payload;
-            console.log('here');
         },
         filterKeys: (state, action) => {
             state.filteredKeys = state.keys.filter((key) => {return action.payload.includes(key)})

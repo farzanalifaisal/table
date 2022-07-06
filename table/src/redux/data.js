@@ -9,8 +9,8 @@ let remove = (array) => {
 }
 
 function Data() {
-    // const url = "https://mocki.io/v1/d4867d8b-b5d5-4a48-a4ab-79131b5809b8"
-    const url = "https://fakestoreapi.com/products"
+    const url = "https://mocki.io/v1/d4867d8b-b5d5-4a48-a4ab-79131b5809b8"
+    // const url = "https://fakestoreapi.com/products"
     const dispatch = useDispatch();
     fetch(url)
         .then(res => res.json())

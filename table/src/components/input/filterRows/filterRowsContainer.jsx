@@ -23,10 +23,10 @@ const FilterRowsContainer = () => {
                     {filters.map((value, id) => {
                         return (
                             <Box key={id} sx={{ display: 'flex', paddingBottom: "10px" }}>
-                                <IconButton sx={{ alignSelf: 'center', marginRight: '8px' }} onClick={() => { dispatch(deleteFilterAt(id)) }}>
+                                <IconButton sx={{ alignSelf: 'center', marginRight: '8px' }} onClick={() => { console.log('deleting filter at x'); dispatch(deleteFilterAt(id)) }}>
                                     <CloseIcon />
                                 </IconButton>
-                                <FilterRows index={id} />
+                                <FilterRows index={id} filter={value}/>
                             </Box>
                         );
                     })}

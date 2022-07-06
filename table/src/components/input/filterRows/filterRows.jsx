@@ -19,13 +19,14 @@ const FilterRows = (props) => {
     }
 
     const [filter, setFilter] = useState({
-        column: "",
+        column: props.filter.column,
         operator: "contains",
-        value: "",
+        value: props.filter.value,
     })
 
     useEffect(() => {
         dispatch(changeFilterAt({ "filter": filter, "index": props.index }));
+        console.log("changing filter")
     }, [filter])
 
     return (
@@ -73,7 +74,7 @@ const FilterRows = (props) => {
                 value={filters[props.index].value}
             />
         </Box>
-        
+
     )
 }
 

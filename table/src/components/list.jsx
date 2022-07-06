@@ -1,16 +1,25 @@
 // This is a component which renders an abstract list
 
 import React from 'react'
-import { useSelector } from 'react-redux';
-import { Table, TableHead, TableRow, TableCell, TableBody, Skeleton, Box } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import Filter from './filter/filter.js';
+import { useEffect } from 'react';
+import { setFilteredData } from '../redux/slices/dataSlice';
 
 const List = () => {
 
   const data = useSelector((state) => state.dataReducer.data);
+  const filteredData = useSelector((state) => state.dataReducer.filteredData);
   const keys = useSelector((state) => state.keysReducer.filteredKeys);
   const filters = useSelector((state) => state.filterReducer.filters);
   const connector = useSelector((state) => state.filterReducer.connector);
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setFilteredData(data.filter((row) => { return filters.length > 0 ? checkFilters(row) : true })))
+  }, [filters])
 
   let checkFilters = (row) => {
     if (connector === "And") {
@@ -38,7 +47,7 @@ const List = () => {
       </TableHead>
 
       <TableBody>
-        {data.filter((row) => { return filters.length > 0 ? checkFilters(row) : true }).map((row, idRow) =>
+        {filteredData.map((row, idRow) =>
           // map table rows here
           <TableRow key={idRow}>
             {/* map row table cells here */}
